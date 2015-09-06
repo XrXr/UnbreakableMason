@@ -32,11 +32,29 @@ function cellHover (ev) {
     lastOrigin = ev.target;
 }
 
+function layBrick () {
+    for (let cell of highlighted) {
+        cell.classList.add('laid-brick');
+    }
+}
+
+function makeLayer () {
+    const div = document.createElement('div');
+    div.classList.add('layer');
+    return div;
+}
+
 function makeCell (x, y) {
     const cell = document.createElement('td');
     cell.className = 'cell';
     cell.masonPos = [x, y];
-    cell.addEventListener('mouseover', cellHover);
+    cell.addEventListener('mouseover', cellHover, true);
+    cell.addEventListener('click', layBrick, true);
+
+    const topLayer = makeLayer();
+    topLayer.classList.add('top');
+    cell.appendChild(topLayer);
+    cell.appendChild(makeLayer());
     return cell;
 }
 
@@ -75,6 +93,10 @@ function findCellsToFill (origin, width, height, flip) {
         return findCellsToFill(origin, height, width);
     }
 
+    while (origin.tagName !== 'TD') {
+        origin = origin.parentElement;
+    }
+
     const cells = [];
     const [ox, oy] = origin.masonPos;
     const topx = ox - Math.floor(width / 2);
@@ -87,14 +109,16 @@ function findCellsToFill (origin, width, height, flip) {
     return cells;
 }
 
-function drawInputtedGrid () {
+function reset () {
+    dehighlight();
     redrawGrid(window.parseInt(gwidth.value), window.parseInt(gheight.value));
 }
 
-gwidth.addEventListener('change', drawInputtedGrid, false);
-gheight.addEventListener('change', drawInputtedGrid, false);
-bwidth.addEventListener('change', drawInputtedGrid, false);
-bheight.addEventListener('change', drawInputtedGrid, false);
+gwidth.addEventListener('change', reset, false);
+gheight.addEventListener('change', reset, false);
+bwidth.addEventListener('change', reset, false);
+bheight.addEventListener('change', reset, false);
+
 window.addEventListener('keydown', function (ev) {
     if (ev.key === 'Tab') {
         ev.preventDefault();
@@ -108,4 +132,5 @@ window.addEventListener('keydown', function (ev) {
         }
     }
 }, true);
-drawInputtedGrid();
+
+reset();

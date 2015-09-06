@@ -15,8 +15,25 @@ table {
     height: 40px;
     padding: 0px;
     border: 1px dashed black;
+    position: relative;
 }
 
-.hover-highlight {
+.layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.top {
+    z-index: 1;
+}
+
+.hover-highlight .layer.top {
     background-color: orange;
+    opacity: 0.6;
+}
+
+.laid-brick .layer {
+    background-color: green;
 }
