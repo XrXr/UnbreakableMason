@@ -3,6 +3,7 @@ const tbody = document.getElementsByTagName('tbody')[0];
 const HIGHLIGHT_CLASS = 'hover-highlight';
 let highlighted = [];
 let flipBrick = false;
+let lastOrigin;
 
 function emptyTable () {
     for (let i = tbody.children.length - 1; i >= 0; i--) {
@@ -10,13 +11,17 @@ function emptyTable () {
     }
 }
 
-function cellHover (ev) {
+function dehighlight () {
     for (let cell of highlighted) {
         cell.classList.remove(HIGHLIGHT_CLASS);
     }
+    highlighted = [];
+}
 
+function cellHover (ev) {
+    dehighlight();
     const toFill = findCellsToFill(ev.target, window.parseInt(bwidth.value),
-                                   window.parseInt(bheight.value));
+                                   window.parseInt(bheight.value), flipBrick);
     if (!toFill) {
         return;
     }
@@ -24,6 +29,7 @@ function cellHover (ev) {
     for (let cell of toFill) {
         cell.classList.add(HIGHLIGHT_CLASS);
     }
+    lastOrigin = ev.target;
 }
 
 function makeCell (x, y) {
@@ -89,4 +95,17 @@ gwidth.addEventListener('change', drawInputtedGrid, false);
 gheight.addEventListener('change', drawInputtedGrid, false);
 bwidth.addEventListener('change', drawInputtedGrid, false);
 bheight.addEventListener('change', drawInputtedGrid, false);
+window.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Tab') {
+        ev.preventDefault();
+        ev.stopPropagation();
+        dehighlight();
+        flipBrick = !flipBrick;
+        if (lastOrigin) {
+            cellHover({
+                target: lastOrigin
+            });
+        }
+    }
+}, true);
 drawInputtedGrid();
