@@ -51,9 +51,7 @@ function makeCell (x, y) {
     cell.addEventListener('mouseover', cellHover, true);
     cell.addEventListener('click', layBrick, true);
 
-    const topLayer = makeLayer();
-    topLayer.classList.add('top');
-    cell.appendChild(topLayer);
+    cell.appendChild(makeLayer());
     cell.appendChild(makeLayer());
     return cell;
 }

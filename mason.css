@@ -25,15 +25,15 @@ table {
     top: 0;
 }
 
-.top {
+.layer:first-child {
     z-index: 1;
 }
 
-.hover-highlight .layer.top {
+.hover-highlight .layer:first-child {
     background-color: orange;
     opacity: 0.6;
 }
 
-.laid-brick .layer {
+.laid-brick .layer:last-child {
     background-color: green;
 }
