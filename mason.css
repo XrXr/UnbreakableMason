@@ -1,0 +1,18 @@
+.input-row {
+    display: flex;
+}
+
+.brick-form {
+    margin-left: 30px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+    border: 1px solid black;
+}
