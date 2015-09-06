@@ -1,11 +1,10 @@
 /* jshint esnext: true */
-let tbody = document.getElementsByTagName('tbody')[0];
+const tbody = document.getElementsByTagName('tbody')[0];
 
 function emptyTable () {
-    const table = tbody.parentElement;
-    tbody.remove();
-    tbody = document.createElement('tbody');
-    table.appendChild(tbody);
+    for (let i = tbody.children.length - 1; i >= 0; i--) {
+        tbody.children[i].remove();
+    }
 }
 
 function makeCell () {
