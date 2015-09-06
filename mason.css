@@ -14,5 +14,9 @@ table {
     width: 40px;
     height: 40px;
     padding: 0px;
-    border: 1px solid black;
+    border: 1px dashed black;
+}
+
+.hover-highlight {
+    background-color: orange;
 }
