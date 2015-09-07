@@ -158,6 +158,8 @@ window.addEventListener('keydown', function (ev) {
                 target: lastOrigin
             });
         }
+    } else if (ev.key === 'Escape') {
+        dehighlight();
     }
 }, true);
 
