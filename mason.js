@@ -41,7 +41,7 @@ function layBrick () {
     }
 
     for (let cell of highlighted) {
-        cell.classList.add('laid-brick');
+        cell.classList.add(HIGHLIGHT_CLASS);
         cell.classList.add('no-border');
     }
 
@@ -167,7 +167,7 @@ window.addEventListener('keydown', function (ev) {
         const lastSet = undos.pop();
         if (lastSet) {
             for (let cell of lastSet) {
-                cell.classList.remove(HIGHLIGHT_CLASS);
+                cell.className = 'cell';
             }
         }
     }
