@@ -1,6 +1,8 @@
 /* jshint esnext: true */
 const tbody = document.getElementsByTagName('tbody')[0];
-const HIGHLIGHT_CLASS = 'hover-highlight';
+const HOVER_CLASS = 'hover-highlight';
+const HIGHLIGHT_CLASS = 'laid-brick';
+
 let highlighted = [];
 let flipBrick = false;
 let lastOrigin;
@@ -13,7 +15,7 @@ function emptyTable () {
 
 function dehighlight () {
     for (let cell of highlighted) {
-        cell.classList.remove(HIGHLIGHT_CLASS);
+        cell.classList.remove(HOVER_CLASS);
     }
     highlighted = [];
 }
@@ -27,12 +29,16 @@ function cellHover (ev) {
     }
     highlighted = toFill.concat();
     for (let cell of toFill) {
-        cell.classList.add(HIGHLIGHT_CLASS);
+        cell.classList.add(HOVER_CLASS);
     }
     lastOrigin = ev.target;
 }
 
 function layBrick () {
+    if (highlighted.some(node => node.classList.contains(HIGHLIGHT_CLASS))) {
+        return;
+    }
+
     for (let cell of highlighted) {
         cell.classList.add('laid-brick');
         cell.classList.add('no-border');
