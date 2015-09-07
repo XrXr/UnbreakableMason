@@ -35,6 +35,30 @@ function cellHover (ev) {
 function layBrick () {
     for (let cell of highlighted) {
         cell.classList.add('laid-brick');
+        cell.classList.add('no-border');
+    }
+
+    let width = window.parseInt(bwidth.value);
+    let height = window.parseInt(bheight.value);
+    if (flipBrick) {
+        [width, height] = [height, width];
+    }
+    const len = highlighted.length;
+
+    for (let i = 0; i < len; i += height) {
+        highlighted[i].classList.add('seal-top');
+    }
+
+    for (let i = height - 1; i < len; i += height) {
+        highlighted[i].classList.add('seal-bottom');
+    }
+
+    for (let i = 0; i < height; i++) {
+        highlighted[i].classList.add('seal-left');
+    }
+
+    for (let i = len - height; i < len; i++) {
+        highlighted[i].classList.add('seal-right');
     }
 }
 
