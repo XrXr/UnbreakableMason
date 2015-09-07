@@ -6,6 +6,7 @@ const HIGHLIGHT_CLASS = 'laid-brick';
 let highlighted = [];
 let flipBrick = false;
 let lastOrigin;
+let undos = [];
 
 function emptyTable () {
     for (let i = tbody.children.length - 1; i >= 0; i--) {
@@ -66,6 +67,8 @@ function layBrick () {
     for (let i = len - height; i < len; i++) {
         highlighted[i].classList.add('seal-right');
     }
+
+    undos.push(highlighted);
 }
 
 function makeLayer () {
@@ -160,6 +163,13 @@ window.addEventListener('keydown', function (ev) {
         }
     } else if (ev.key === 'Escape') {
         dehighlight();
+    } else if (ev.key === 'z' && (ev.ctrlKey || ev.metaKey)) {
+        const lastSet = undos.pop();
+        if (lastSet) {
+            for (let cell of lastSet) {
+                cell.classList.remove(HIGHLIGHT_CLASS);
+            }
+        }
     }
 }, true);
 

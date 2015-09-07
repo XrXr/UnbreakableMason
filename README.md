@@ -5,8 +5,11 @@ A quick weekend project hacked together to help visualize this
 
 # Controls
 
+Click on the grid to lay bricks
+
 - Tab: flip brick
 - Esc: cancel current hover highlighting
+- Ctrl + z or Command + z: undo last brick
 
 # Browser compatibility
 
